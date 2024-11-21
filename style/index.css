@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;500;600;700&display=swap');
+
+/* Réinitialisation */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    background-color: #090118; /* Couleur de fond entre les vecteurs */
+}
+
+/* Logo centré */
+.spikes-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 48px;
+    z-index: 1; /* Devant les vecteurs */
+}
+
+/* Top Vector */
+.top-vector {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+.top-vector img {
+    width: 100%; /* L'image occupe toute la largeur */
+    height: auto; /* Conserve les proportions */
+    max-height: 40vh; /* Limite la hauteur de l'image à 40% de la hauteur de la fenêtre */
+}
+
+/* Bottom Vector */
+.bottom-vector {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+.bottom-vector img {
+    width: 100%; /* L'image occupe toute la largeur */
+    height: auto; /* Conserve les proportions */
+    max-height: 40vh; /* Limite la hauteur de l'image à 40% de la hauteur de la fenêtre */
+}
+
+/* L'ellipse occupe toute la fenêtre */
+.ellipse {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2; /* L'ellipse est derrière les autres éléments */
+}
+
+.ellipse img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* L'image remplit entièrement l'espace disponible */
+}
+
+/* Marquee Section */
+.marquee-demo {
+    position: absolute;
+    top: 444px; /* devra être de taille 344 pour 1440x1024 */
+    right: 0;
+    left: 0;
+    max-width: 100%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Empêche le contenu de déborder */
+}
+
+.marquee, .marqueereverse {
+    position: relative;
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* Pour centrer le contenu initialement */
+    white-space: nowrap;
+    padding: 16px 0;
+}
+
+.marquee-content {
+    display: flex;
+    gap: 16px;  /* Supprimer l'écart entre les cartes */
+    animation: marquee 60s linear infinite;  /* Animation très lente */
+}
+
+
+.marque.reverse .marquee-content {
+    animation-direction: reverse;
+    animation: marqueeReverse 60s linear infinite;  /* Animation pour le défilement inversé */
+}
+
+/* Styles de base pour la carte */
+.review-card {
+    display: flex;
+    flex-direction: column;
+    width: 287px;
+    height: 160px;
+    padding: 16px;
+    background-color: #0C0024;  /* Couleur de fond initiale */
+    border-radius: 12px;
+    gap: 16px;
+    font-family: "SF Pro Text", sans-serif;
+    opacity: 0.9;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;  /* Transition de la couleur de fond et de bordure */
+    box-sizing: border-box;
+    
+    /* Dégradé de la bordure */
+    background: #0C0024;  /* Couleur de fond qui ne sera pas affectée par la transition */
+    border: 1px solid transparent;  /* Bordure transparente pour ne pas gêner l'effet */
+    background: linear-gradient(#0C0024, #0C0024) padding-box,
+                linear-gradient(to bottom, #4C3182, #11032C) border-box; /* Dégradé sur les bords */
+}
+
+/* Effet au survol */
+.review-card:hover {
+    background-color: #4C3182;  /* Changer la couleur de fond au survol */
+    border-color: #6A44A9;  /* Changer la couleur de bordure au survol */
+    background: linear-gradient(#100031d1, #1000318a) padding-box,
+                linear-gradient(to bottom, #11032C, #4C3182) border-box;
+}
+
+
+
+
+
+
+
+
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);  /* Déplacement vers la gauche de toute la largeur du conteneur */
+    }
+}
+
+@keyframes marqueeReverse {
+    0% {
+        transform: translateX(0%);  /* Démarrer centré */
+    }
+    100% {
+        transform: translateX(100%);  /* Déplace les éléments vers la gauche */
+    }
+}
+
+
+
+
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.review-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.username {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.review-body {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #fff;
+    overflow-wrap: break-word; /* Coupe les mots trop longs */
+    word-wrap: break-word; /* Compatibilité supplémentaire */
+    word-break: break-word; /* Gestion des mots très longs */
+    white-space: normal; /* Permet le retour naturel à la ligne */
+}
+
+
+
+/* Gradient Edges for Visual Effect */
+.marquee-demo::before,
+.marquee-demo::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.marquee-demo::before {
+    left: 0;
+    background: linear-gradient(to right, #0C0024, transparent);
+}
+
+
+.marquee-demo::after {
+    right: 0;
+    background: linear-gradient(to left, #0C0024, transparent);
+}
+
+

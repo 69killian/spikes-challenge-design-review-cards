@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Spikes Design Reviews</title>
+</head>
+<body>
+    <div class="ellipse">
+        <img src="images/Ellipse.png" alt="ellipse">
+    </div>
+
+    <div class="spikes-logo">
+        <img src="images/Spikes Logo.png" alt="Logo">
+    </div>
+
+    <div class="top-vector">
+        <img src="images/Pattern.png" alt="Vector1">
+    </div>
+
+
+    <div class="bottom-vector">
+        <img src="images/Pattern-1.png" alt="Vector2">
+    </div>
+
+    <div class="marquee-demo">
+        <div class="marquee" data-direction="left">
+            <div class="marquee-content" id="marquee-content-left">
+                <!-- Les cartes seront insérées ici par JS -->
+            </div>
+        </div>
+    
+        <div class="marquee reverse" data-direction="right">
+            <div class="marquee-content" id="marquee-content-right">
+                <!-- Les cartes seront insérées ici par JS -->
+            </div>
+        </div>
+    </div>
+    
+    
+</body>
+</html>
+<script>
+   // Fonction pour générer une carte
+function generateCard(name, username, body, avatarUrl) {
+    return `
+        <div class="review-card with-gradient">
+            <div class="review-header">
+                <img src="${avatarUrl}" alt="${name}" class="avatar">
+                <div class="review-info">
+                    <p class="name">${name}</p>
+                    <p class="username">@${username}</p>
+                </div>
+            </div>
+            <p class="review-body">${body}</p>
+        </div>
+    `;
+}
+
+// Ajouter des cartes au contenu
+function addCards(containerId) {
+    const container = document.getElementById(containerId);
+    const cardData = [
+        {name: "Jack", username: "jack", body: "I've never seen anything like this before. It's amazing. I love it.", avatarUrl: "https://avatar.vercel.sh/jack"},
+        {name: "Jill", username: "jill", body: "I don't know what to say. I'm speechless. This is amazing.", avatarUrl: "https://avatar.vercel.sh/jill"},
+        {name: "John", username: "john", body: "I'm at a loss for words. This is amazing. I love it.", avatarUrl: "https://avatar.vercel.sh/john"},
+        {name: "Jane", username: "jane", body: "I'm at a loss for words. This is amazing. I love it.", avatarUrl: "https://avatar.vercel.sh/jane"},
+    ];
+
+    // Générer et ajouter les cartes
+    let cardsHtml = '';
+    for (let i = 0; i < 10; i++) {
+        cardData.forEach(card => {
+            cardsHtml += generateCard(card.name, card.username, card.body, card.avatarUrl);
+        });
+    }
+
+    container.innerHTML = cardsHtml; // Ajouter les cartes au conteneur
+}
+
+// Fonction pour appliquer les animations via JavaScript
+function applyMarqueeAnimation() {
+    const marqueeContents = document.querySelectorAll('.marquee-content');
+    marqueeContents.forEach(marqueeContent => {
+        // Appliquer les animations CSS en JavaScript
+        marqueeContent.style.display = 'flex';
+        marqueeContent.style.gap = '16px';
+        marqueeContent.style.animationDuration = '500s';
+        marqueeContent.style.animationTimingFunction = 'linear';
+        marqueeContent.style.animationIterationCount = 'infinite';
+
+        // Animation gauche
+        if (marqueeContent.closest('.marquee')) {
+            marqueeContent.style.animationName = 'marquee';
+        }
+
+        // Animation droite (inverse)
+        if (marqueeContent.closest('.marquee.reverse')) {
+            marqueeContent.style.animationName = 'marqueeReverse';
+        }
+
+        // Ajouter les événements de hover pour mettre en pause et reprendre l'animation
+        marqueeContent.addEventListener('mouseenter', () => {
+            marqueeContent.style.animationPlayState = 'paused'; // Mettre l'animation en pause
+        });
+
+        marqueeContent.addEventListener('mouseleave', () => {
+            marqueeContent.style.animationPlayState = 'running'; // Reprendre l'animation
+        });
+    });
+}
+
+// Fonction pour recharger les animations toutes les 30 secondes
+function resetAnimations() {
+    const marqueeContents = document.querySelectorAll('.marquee-content');
+
+    // Réinitialiser l'animation en supprimant et réajoutant l'animation
+    marqueeContents.forEach(marqueeContent => {
+        // Supprimer l'animation en la réinitialisant
+        marqueeContent.style.animation = 'none';
+
+        // Forcer une nouvelle lecture de l'animation après un délai
+        setTimeout(() => {
+            marqueeContent.style.animation = ''; // Réinitialiser les styles d'animation
+            applyMarqueeAnimation(); // Réappliquer l'animation
+        }, 10); // Attendre un court instant avant de réappliquer l'animation
+    });
+}
+
+// Appel des fonctions initiales
+addCards('marquee-content-left');
+addCards('marquee-content-right');
+applyMarqueeAnimation(); // Appliquer les animations via JS
+
+// Réinitialiser les animations toutes les 30 secondes
+setInterval(resetAnimations, 30000); // Réinitialise toutes les 30 secondes
+
+</script>
