@@ -238,3 +238,36 @@ body {
 }
 
 
+
+.spikes-button-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1; /* Devant les vecteurs */
+    position: fixed;
+    bottom: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+    
+}
+
+.spikes-button-link button {
+    position: relative;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.028); /* Couleur de fond avec transparence */
+    backdrop-filter: blur(2px); /* Flou appliqué au fond */
+    border: none; /* Enlever les bordures si nécessaire */
+    padding:  4px 20px;
+    border-radius: 16px;
+    border: 1px solid #4C3182;
+    font-size: 16px; 
+    color: white;
+}
+
+.spikes-button-link a {
+    text-decoration: none;
+    color: white;
+}
+
+
+
